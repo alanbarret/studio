@@ -11,8 +11,8 @@ import { Icons } from '@/components/icons';
 import { useToast } from '@/hooks/use-toast';
 
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@example.com');
+  const [password, setPassword] = useState('Admin@123');
   const { toast } = useToast();
   const router = useRouter();
 
@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
         toast({
           title: 'Login Successful',
           description: 'Redirecting to your dashboard...',
@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
         toast({
           variant: 'destructive',
           title: 'Login Failed',
-          description: errorData.message?.message || 'Invalid credentials. Please try again.',
+          description: errorData.message || 'Invalid credentials. Please try again.',
         });
       }
     } catch (error) {
