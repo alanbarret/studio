@@ -16,10 +16,10 @@ export default function DashboardOverview() {
   const latestBooking = bookingHistory[0];
 
   return (
-    <div className="space-y-6">
+    <div className="p-4 md:p-6 space-y-6">
       <h1 className="text-3xl font-bold tracking-tight">Welcome, {user.name.split(' ')[0]}!</h1>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
@@ -68,47 +68,32 @@ export default function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card>
+         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              Payment Method <CreditCard className="h-5 w-5 text-muted-foreground" />
-            </CardTitle>
-            <CardDescription>Your default payment option.</CardDescription>
+            <CardTitle>Recent Activity</CardTitle>
+            <CardDescription>A look at your most recent washes.</CardDescription>
           </CardHeader>
           <CardContent>
-             <div className="text-2xl font-bold">Visa **** 4242</div>
-             <p className="text-xs text-muted-foreground">
-                Expires 12/26
-             </p>
-             <Button asChild variant="outline" size="sm" className="mt-4">
-                <Link href="/dashboard/payments">Manage Payments</Link>
-             </Button>
+            <ul className="space-y-4">
+              {bookingHistory.slice(0, 3).map(booking => (
+                  <li key={booking.id} className="flex items-center justify-between">
+                      <div>
+                          <p className="font-medium">{booking.service}</p>
+                          <p className="text-sm text-muted-foreground">{booking.date}</p>
+                      </div>
+                      <div className="text-right">
+                           <p className="font-medium">${booking.amount}</p>
+                           <Badge variant={booking.status === 'Completed' ? 'default' : 'secondary'} className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">{booking.status}</Badge>
+                      </div>
+                  </li>
+              ))}
+            </ul>
+            <Button asChild variant="link" className="px-0 mt-2">
+              <Link href="/dashboard/history">View all activity</Link>
+            </Button>
           </CardContent>
         </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
-          <CardDescription>A look at your most recent washes.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ul className="space-y-4">
-            {bookingHistory.slice(0, 3).map(booking => (
-                <li key={booking.id} className="flex items-center justify-between">
-                    <div>
-                        <p className="font-medium">{booking.service}</p>
-                        <p className="text-sm text-muted-foreground">{booking.date}</p>
-                    </div>
-                    <div className="text-right">
-                         <p className="font-medium">${booking.amount}</p>
-                         <Badge variant={booking.status === 'Completed' ? 'default' : 'secondary'} className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">{booking.status}</Badge>
-                    </div>
-                </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
     </div>
   );
 }

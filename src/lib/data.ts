@@ -1,4 +1,4 @@
-import { Car, CreditCard, History, Home, LogOut, Settings, Wallet } from 'lucide-react';
+import { Car, CreditCard, History, Home, LogOut, Settings, User, Wallet } from 'lucide-react';
 
 export const subscriptionPlans = [
   {
@@ -140,7 +140,7 @@ export const dashboardNavItems = [
     { href: '/dashboard/subscriptions', label: 'Subscriptions', icon: Wallet },
     { href: '/dashboard/payments', label: 'Payment Methods', icon: CreditCard },
     { href: '/dashboard/history', label: 'Booking History', icon: History },
-    { href: '#', label: 'Settings', icon: Settings },
+    { href: '/dashboard/profile', label: 'Profile', icon: User },
 ];
 
 export const dashboardLogoutItem = {

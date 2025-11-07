@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import {
   Card,
@@ -9,62 +11,78 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { PlusCircle, Repeat } from 'lucide-react';
-import { userSubscriptions } from '@/lib/data';
+import { PlusCircle, Repeat, LogOut, Edit, Trash2 } from 'lucide-react';
+import { user, userSubscriptions, paymentMethods } from '@/lib/data';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useRouter } from 'next/navigation';
 
-export default function SubscriptionsPage() {
+export default function ProfilePage() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // In a real app, you'd handle token invalidation etc.
+    router.push('/');
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Manage Subscriptions</h1>
-        <Button asChild>
-          <Link href="/">
-            <PlusCircle className="mr-2 h-4 w-4" /> Add New Plan
-          </Link>
+    <div className="p-4 md:p-6 space-y-6">
+      <div className="flex items-center gap-4">
+        <Avatar className="h-16 w-16">
+          <AvatarImage src={user.avatar} alt={user.name} />
+          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div>
+          <h1 className="text-2xl font-bold">{user.name}</h1>
+          <p className="text-muted-foreground">{user.email}</p>
+        </div>
+      </div>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle>My Subscriptions</CardTitle>
+          <CardDescription>Manage your active and past plans.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+        {userSubscriptions.map((sub) => (
+          <div key={sub.id} className="flex items-center justify-between rounded-lg border p-4">
+            <div>
+              <p className="font-semibold flex items-center gap-2">
+                {sub.planName}
+                <Badge variant={sub.status === 'Active' ? 'default' : 'secondary'} className={sub.status === 'Active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}>
+                  {sub.status}
+                </Badge>
+              </p>
+              <p className="text-sm text-muted-foreground">
+                ${sub.price}/month | Renews {sub.nextBillingDate}
+              </p>
+            </div>
+            {sub.status === 'Active' ? (
+                <Button variant="outline" size="sm">Manage</Button>
+              ) : (
+                <Button variant="secondary" size="sm"><Repeat className="mr-2 h-4 w-4" />Renew</Button>
+              )}
+          </div>
+        ))}
+        </CardContent>
+        <CardFooter>
+          <Button asChild variant="outline" className="w-full">
+            <Link href="/">
+              <PlusCircle className="mr-2 h-4 w-4" /> View All Plans
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
+
+
+      <div className="space-y-2">
+        <Button variant="ghost" className="w-full justify-start">
+          <Edit className="mr-2 h-4 w-4" /> Edit Profile
+        </Button>
+        <Button variant="ghost" onClick={handleLogout} className="w-full justify-start text-destructive hover:text-destructive">
+          <LogOut className="mr-2 h-4 w-4" /> Log Out
         </Button>
       </div>
 
-      <div className="grid gap-6">
-        {userSubscriptions.map((sub) => (
-          <Card key={sub.id}>
-            <CardHeader className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="md:col-span-3">
-                <CardTitle className="flex items-center gap-2">
-                  {sub.planName} 
-                  <Badge variant={sub.status === 'Active' ? 'default' : 'secondary'} className={sub.status === 'Active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}>
-                    {sub.status}
-                  </Badge>
-                </CardTitle>
-                <CardDescription>Subscription ID: {sub.id}</CardDescription>
-              </div>
-              <div className="text-left md:text-right">
-                <p className="text-2xl font-bold">${sub.price}<span className="text-sm font-normal text-muted-foreground">/month</span></p>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {sub.status === 'Active' ? (
-                <p className="text-sm text-muted-foreground">
-                  Your plan will automatically renew on {sub.nextBillingDate}.
-                </p>
-              ) : (
-                <p className="text-sm text-muted-foreground">
-                  This plan was cancelled on {sub.cancellationDate}.
-                </p>
-              )}
-            </CardContent>
-            <CardFooter className="flex justify-end gap-2">
-              {sub.status === 'Active' ? (
-                <>
-                  <Button variant="outline">Change Plan</Button>
-                  <Button variant="destructive">Cancel Subscription</Button>
-                </>
-              ) : (
-                <Button variant="secondary"><Repeat className="mr-2 h-4 w-4" />Renew Plan</Button>
-              )}
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
     </div>
   );
 }
