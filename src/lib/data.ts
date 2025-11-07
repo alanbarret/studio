@@ -25,9 +25,24 @@ export type SubscriptionPlan = {
 };
 
 
-export const getSubscriptionPlans = async (): Promise<SubscriptionPlan[]> => {
+export const getSubscriptionPlans = async (filters: { [key: string]: string | boolean } = {}): Promise<SubscriptionPlan[]> => {
   try {
-    const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true');
+    const url = new URL('https://maison-saner-roni.ngrok-free.dev/products');
+    
+    // Set default filters that should always be present
+    url.searchParams.set('serviceName', 'car-wash');
+    url.searchParams.set('type', 'subscribe');
+    url.searchParams.set('active', 'true');
+
+    // Add any additional filters passed to the function
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            url.searchParams.set(key, String(value));
+        }
+    });
+
+    const response = await fetch(url.toString());
+
     if (!response.ok) {
       console.error('Failed to fetch products', response.statusText);
       return [];
