@@ -20,7 +20,7 @@ export default function Hero() {
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-      <div className="relative z-10 p-4 flex flex-col items-center">
+      <div className="relative z-10 p-4 flex flex-col items-center container">
         <div className="bg-background/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 animate-fade-in-up">
           <p className="text-sm font-medium text-primary">Your Home, Perfectly Maintained</p>
         </div>
