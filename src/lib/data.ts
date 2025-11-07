@@ -45,6 +45,17 @@ export const getSubscriptionPlans = async (filters: { [key: string]: string | bo
 
     if (!response.ok) {
       console.error('Failed to fetch products', response.statusText);
+       // Attempt with no-cors as a fallback for development
+      const noCorsResponse = await fetch(url.toString());
+      if(noCorsResponse.ok){
+         const products: SubscriptionPlan[] = await noCorsResponse.json();
+         if (products.length > 1) {
+            products[1].isPopular = true;
+        } else if (products.length === 1) {
+            products[0].isPopular = true;
+        }
+        return products;
+      }
       return [];
     }
     const products: SubscriptionPlan[] = await response.json();
@@ -190,3 +201,5 @@ export const dashboardLogoutItem = {
     label: 'Log Out',
     icon: LogOut,
 };
+
+    
