@@ -13,12 +13,10 @@ export const Icons = {
       className={className}
       {...props}
     >
-      <path d="M5 12-2 22" />
-      <path d="M2 12h20" />
-      <path d="m21 12-1.4 4.5" />
-      <path d="m15 12-1 4" />
-      <path d="m9 12-1 4" />
-      <path d="M17.5 12a5.5 5.5 0 1 0-11 0" />
+      <path d="M12 20a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Z" />
+      <path d="M19 17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z" />
+      <path d="M19 7V5H5v2" />
+      <path d="M5 17v-3h14v3" />
     </svg>
   ),
 };

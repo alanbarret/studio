@@ -1,11 +1,11 @@
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { benefits } from '@/lib/data';
-import { Sparkles, ShieldCheck, Leaf, CalendarClock } from 'lucide-react';
+import { Sparkles, ShieldCheck, Car, CalendarClock } from 'lucide-react';
 
 const iconMap: { [key: string]: React.ElementType } = {
   Sparkles,
   ShieldCheck,
-  Leaf,
+  Car,
   CalendarClock,
 };
 
@@ -16,7 +16,7 @@ export default function Benefits() {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">The CleanSweep Advantage</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
-            Experience the difference of a subscription-based cleaning service.
+            Experience the difference of a subscription-based car wash service.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">

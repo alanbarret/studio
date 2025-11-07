@@ -26,7 +26,7 @@ export default function HistoryPage() {
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Your Past Cleanings</CardTitle>
+          <CardTitle>Your Past Washes</CardTitle>
           <CardDescription>Review your complete service history with CleanSweep.</CardDescription>
         </CardHeader>
         <CardContent>

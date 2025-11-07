@@ -2,25 +2,25 @@
   "placeholderImages": [
     {
       "id": "hero",
-      "description": "A clean and modern living room with bright lighting",
-      "imageUrl": "https://images.unsplash.com/photo-1576697133123-675aa93f3e28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjbGVhbiUyMGxpdmluZ3Jvb218ZW58MHx8fHwxNzYyNTIzMjgyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "clean livingroom"
+      "description": "A shiny black car after a professional wash",
+      "imageUrl": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbGVhbiUyMGNhcnxlbnwwfHx8fDE3NjI1NTU1MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "clean car"
     },
     {
       "id": "benefit-1",
-      "description": "Professional cleaner wiping a surface",
-      "imageUrl": "https://images.unsplash.com/photo-1608012075343-25226e3099f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwcm9mZXNzaW9uYWwlMjBjbGVhbmVyfGVufDB8fHx8MTc2MjU1NTUzM3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "professional cleaner"
+      "description": "Professional detailer polishing a car",
+      "imageUrl": "https://images.unsplash.com/photo-1616422285852-243194f5791a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjBkZXRhaWxpbmJ8ZW58MHx8fHwxNzYyNTU1NTMz&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car detailing"
     },
     {
       "id": "benefit-2",
-      "description": "Eco-friendly cleaning products on a wooden table",
-      "imageUrl": "https://images.unsplash.com/photo-1563391506244-af91a410fcc9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlY28tZnJpZW5kbHklMjBwcm9kdWN0c3xlbnwwfHx8fDE3NjI1NTU1MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "eco-friendly products"
+      "description": "High-quality car wax and microfiber towels",
+      "imageUrl": "https://images.unsplash.com/photo-1582769216936-82991f0459c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjB3YXh8ZW58MHx8fHwxNzYyNTU1NTMz&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "car wax"
     },
     {
       "id": "benefit-3",
-      "description": "A person using a phone to book a service",
+      "description": "A person using a phone to book a car wash",
       "imageUrl": "https://images.unsplash.com/photo-1759143545924-beb85b33c0f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib29raW5nJTIwc2VydmljZXxlbnwwfHx8fDE3NjI1NTU1MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "booking service"
     }

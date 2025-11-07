@@ -4,7 +4,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'CleanSweep Subscriptions',
-  description: 'Impeccable Clean, Unmatched Convenience.',
+  description: 'Impeccable Car Washes, Unmatched Convenience.',
 };
 
 export default function RootLayout({

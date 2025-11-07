@@ -53,7 +53,7 @@ export default function DashboardOverview() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
-              Next Cleaning <Calendar className="h-5 w-5 text-muted-foreground" />
+              Next Wash <Calendar className="h-5 w-5 text-muted-foreground" />
             </CardTitle>
             <CardDescription>Your upcoming appointment.</CardDescription>
           </CardHeader>
@@ -90,7 +90,7 @@ export default function DashboardOverview() {
       <Card>
         <CardHeader>
           <CardTitle>Recent Activity</CardTitle>
-          <CardDescription>A look at your most recent cleanings.</CardDescription>
+          <CardDescription>A look at your most recent washes.</CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

@@ -22,13 +22,13 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
       <div className="relative z-10 p-4 flex flex-col items-center container">
         <div className="bg-background/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 animate-fade-in-up">
-          <p className="text-sm font-medium text-primary">Your Home, Perfectly Maintained</p>
+          <p className="text-sm font-medium text-primary">Your Car, Perfectly Maintained</p>
         </div>
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-foreground mb-4 animate-fade-in-up animation-delay-200">
-          Impeccable Clean, Unmatched Convenience.
+          Impeccable Shine, Unmatched Convenience.
         </h1>
         <p className="max-w-2xl text-muted-foreground md:text-xl mb-8 animate-fade-in-up animation-delay-400">
-          Subscribe to a consistently clean home. Our trusted professionals deliver a spotless space, so you can focus on what truly matters.
+          Subscribe to a consistently clean car. Our trusted professionals deliver a spotless finish, so you can focus on the drive.
         </p>
         <div className="animate-fade-in-up animation-delay-600">
           <Button size="lg" asChild>
