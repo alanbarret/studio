@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, History, CreditCard, User } from 'lucide-react';
+import { Home, History, CreditCard, User, Car } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Icons } from '@/components/icons';
 
 const dashboardNavItems = [
     { href: '/dashboard', label: 'Home', icon: Home },
     { href: '/dashboard/history', label: 'History', icon: History },
+    { href: '/dashboard/plans', label: 'Plans', icon: Car },
     { href: '/dashboard/payments', label: 'Payments', icon: CreditCard },
     { href: '/dashboard/subscriptions', label: 'Profile', icon: User },
 ];

@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { PlusCircle, Repeat, LogOut, Edit, Trash2 } from 'lucide-react';
-import { user, userSubscriptions, paymentMethods } from '@/lib/data';
+import { PlusCircle, Repeat, LogOut, Edit } from 'lucide-react';
+import { user, userSubscriptions } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
 
@@ -66,7 +66,7 @@ export default function ProfilePage() {
         </CardContent>
         <CardFooter>
           <Button asChild variant="outline" className="w-full">
-            <Link href="/">
+            <Link href="/dashboard/plans">
               <PlusCircle className="mr-2 h-4 w-4" /> View All Plans
             </Link>
           </Button>
