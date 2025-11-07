@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,10 +13,11 @@ import { useToast } from '@/hooks/use-toast';
 export default function LoginPage() {
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
+  const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSendOtp = () => {
-    // Basic phone number validation
     if (!/^\+[1-9]\d{1,14}$/.test(phone)) {
       toast({
         variant: "destructive",
@@ -32,6 +34,7 @@ export default function LoginPage() {
       title: "OTP Sent",
       description: `A one-time password has been sent to ${phone}.`,
     });
+    setStep('otp');
   };
 
   const handleVerify = () => {
@@ -39,8 +42,11 @@ export default function LoginPage() {
     // POST /consumer/verify-otp with { phone, otp }
     console.log('Verifying OTP', otp, 'for', phone);
     if (otp === '123456') { // Mock verification
-        // On success, you'd handle the JWT token and redirect.
-        // For now, we'll just link to the dashboard.
+        toast({
+            title: "Success!",
+            description: "You've been signed in.",
+        });
+        router.push('/dashboard');
     } else {
         toast({
             variant: "destructive",
@@ -50,6 +56,10 @@ export default function LoginPage() {
     }
   };
 
+  const handleBack = () => {
+    setOtp('');
+    setStep('phone');
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
@@ -64,42 +74,45 @@ export default function LoginPage() {
             </Link>
           </div>
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Enter your phone number to receive a one-time password.</CardDescription>
+          <CardDescription>
+            {step === 'phone' 
+                ? 'Enter your phone number to receive a one-time password.'
+                : 'Enter the OTP sent to your phone.'
+            }
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input 
-                id="phone" 
-                type="tel" 
-                placeholder="+1234567890" 
-                required 
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="otp">One-Time Password</Label>
-              <Input 
-                id="otp" 
-                type="text" 
-                placeholder="_ _ _ _ _ _" 
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-              />
-            </div>
-            <Button type="button" variant="secondary" className="w-full" onClick={handleSendOtp}>Send OTP</Button>
-            <Button asChild className="w-full" onClick={handleVerify}>
-              <Link href={otp === '123456' ? "/dashboard" : '#'}>Verify & Sign In</Link>
-            </Button>
-          </div>
-          <p className="mt-4 text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <Link href="/" className="underline text-primary">
-              Sign up
-            </Link>
-          </p>
+            {step === 'phone' ? (
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input 
+                    id="phone" 
+                    type="tel" 
+                    placeholder="+1234567890" 
+                    required 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <Button type="button" className="w-full" onClick={handleSendOtp}>Send OTP</Button>
+              </div>
+            ) : (
+                <div className="space-y-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="otp">One-Time Password</Label>
+                        <Input 
+                            id="otp" 
+                            type="text" 
+                            placeholder="_ _ _ _ _ _" 
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                        />
+                    </div>
+                    <Button type="button" className="w-full" onClick={handleVerify}>Verify & Sign In</Button>
+                    <Button type="button" variant="outline" className="w-full" onClick={handleBack}>Back</Button>
+                </div>
+            )}
         </CardContent>
       </Card>
     </div>
