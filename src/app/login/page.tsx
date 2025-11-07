@@ -17,7 +17,7 @@ export default function LoginPage() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleSendOtp = () => {
+  const handleSendOtp = async () => {
     if (!/^\+[1-9]\d{1,14}$/.test(phone)) {
       toast({
         variant: "destructive",
@@ -27,32 +27,75 @@ export default function LoginPage() {
       return;
     }
     
-    // In a real app, you would call your API here:
-    // POST /consumer/login-otp with { phone }
-    console.log('Sending OTP to', phone);
-    toast({
-      title: "OTP Sent",
-      description: `A one-time password has been sent to ${phone}.`,
-    });
-    setStep('otp');
+    try {
+      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/consumer/login-otp', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': '69420',
+        }),
+        body: JSON.stringify({ phone }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "OTP Sent",
+          description: `A one-time password has been sent to ${phone}.`,
+        });
+        setStep('otp');
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Failed to send OTP",
+          description: data.message || "An error occurred. Please try again.",
+        });
+      }
+    } catch (error) {
+      console.error('Send OTP error:', error);
+      toast({
+        variant: "destructive",
+        title: "An Error Occurred",
+        description: "Could not connect to the server. Please check your network and try again.",
+      });
+    }
   };
 
-  const handleVerify = () => {
-    // In a real app, you would call your API here:
-    // POST /consumer/verify-otp with { phone, otp }
-    console.log('Verifying OTP', otp, 'for', phone);
-    if (otp === '123456') { // Mock verification
+  const handleVerify = async () => {
+    try {
+      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/consumer/verify-otp', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': '69420',
+        }),
+        body: JSON.stringify({ phone, otp }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.accessToken) {
+        localStorage.setItem('user-token', data.accessToken);
         toast({
             title: "Success!",
             description: "You've been signed in.",
         });
         router.push('/dashboard');
-    } else {
+      } else {
         toast({
             variant: "destructive",
             title: "Invalid OTP",
-            description: "The OTP you entered is incorrect. Please try again.",
+            description: data.message || "The OTP you entered is incorrect. Please try again.",
         });
+      }
+    } catch (error) {
+      console.error('Verify OTP error:', error);
+      toast({
+        variant: "destructive",
+        title: "An Error Occurred",
+        description: "Could not connect to the server. Please check your network and try again.",
+      });
     }
   };
 
