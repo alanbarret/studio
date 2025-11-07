@@ -20,10 +20,10 @@ export default function AdminLoginPage() {
     try {
       const response = await fetch('https://maison-saner-roni.ngrok-free.dev/admin/login', {
         method: 'POST',
-        headers: {
+        headers: new Headers({
           'Content-Type': 'application/json',
           'ngrok-skip-browser-warning': '69420',
-        },
+        }),
         body: JSON.stringify({ email, password }),
       });
 
@@ -37,10 +37,11 @@ export default function AdminLoginPage() {
         router.push('/admin/dashboard');
       } else {
         const errorData = await response.json();
+        const errorMessage = errorData.message?.message || errorData.message || 'Invalid credentials. Please try again.';
         toast({
           variant: 'destructive',
           title: 'Login Failed',
-          description: errorData.message?.message || 'Invalid credentials. Please try again.',
+          description: errorMessage,
         });
       }
     } catch (error) {
