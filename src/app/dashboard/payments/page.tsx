@@ -1,3 +1,8 @@
+'use client'
+
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -30,10 +35,10 @@ export default function PaymentsPage() {
               <div className="flex items-center gap-4">
                 {getCardIcon(method.type)}
                 <div>
-                  <p className="font-medium flex items-center gap-2">
+                  <div className="font-medium flex items-center gap-2">
                       {method.type} •••• {method.last4}
                       {method.isDefault && <Badge variant="secondary">Default</Badge>}
-                  </p>
+                  </div>
                   <p className="text-sm text-muted-foreground">Expires {method.expiry}</p>
                 </div>
               </div>
