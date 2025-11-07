@@ -75,8 +75,8 @@ export default function LoginPage() {
 
       const data = await response.json();
 
-      if (response.ok && data.accessToken) {
-        localStorage.setItem('user-token', data.accessToken);
+      if (response.ok && data.access_token) {
+        localStorage.setItem('user-token', data.access_token);
         toast({
             title: "Success!",
             description: "You've been signed in.",
