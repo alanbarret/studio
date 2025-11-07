@@ -72,15 +72,11 @@ export default function ProductsPage() {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      // Using a direct fetch without response processing due to potential CORS issues in dev
-      await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true', {
-          mode: 'no-cors',
+      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true', {
+          headers: new Headers({
+            "ngrok-skip-browser-warning": "69420",
+          }),
       });
-
-      // Since the above fetch is opaque, we'll follow up with one that we can read,
-      // assuming the no-cors call "warmed up" any necessary server state.
-      // This is a workaround for a tricky development environment.
-      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true');
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -152,7 +148,10 @@ export default function ProductsPage() {
     try {
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            "ngrok-skip-browser-warning": "69420"
+        },
         body: JSON.stringify(formData),
       });
 
@@ -176,6 +175,9 @@ export default function ProductsPage() {
     try {
       const response = await fetch(`https://maison-saner-roni.ngrok-free.dev/products/${productToDelete._id}`, {
         method: 'DELETE',
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        }
       });
 
       if (response.ok) {

@@ -41,7 +41,11 @@ export const getSubscriptionPlans = async (filters: { [key: string]: string | bo
         }
     });
 
-    const response = await fetch(url.toString());
+    const response = await fetch(url.toString(), {
+      headers: new Headers({
+        'ngrok-skip-browser-warning': '69420',
+      }),
+    });
 
     if (!response.ok) {
       console.error('Failed to fetch products', response.statusText);
