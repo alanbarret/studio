@@ -29,8 +29,8 @@ export default function AdminLoginPage() {
 
       const data = await response.json();
 
-      if (response.ok && data.token) {
-        localStorage.setItem('admin-token', data.token);
+      if (response.ok && data.accessToken) {
+        localStorage.setItem('admin-token', data.accessToken);
         toast({
           title: 'Login Successful',
           description: "Welcome back! You're being redirected to the dashboard.",
