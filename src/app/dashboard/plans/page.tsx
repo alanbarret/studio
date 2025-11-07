@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Check } from 'lucide-react';
-import { subscriptionPlans } from '@/lib/data';
+import { getSubscriptionPlans } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
-export default function PlansPage() {
+export default async function PlansPage() {
+  const subscriptionPlans = await getSubscriptionPlans();
   return (
     <div className="p-4 md:p-6 space-y-6">
       <div className="text-center">
@@ -31,10 +32,10 @@ export default function PlansPage() {
             </CardHeader>
             <CardContent className="flex-1">
               <ul className="space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center">
+                {plan.benefits.map((feature) => (
+                  <li key={feature.title} className="flex items-center">
                     <Check className="h-5 w-5 text-primary mr-2 flex-shrink-0" />
-                    <span>{feature}</span>
+                    <span>{feature.title}</span>
                   </li>
                 ))}
               </ul>

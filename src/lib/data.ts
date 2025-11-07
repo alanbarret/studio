@@ -1,25 +1,53 @@
 import { Car, CreditCard, History, Home, LogOut, Settings, User, Wallet } from 'lucide-react';
 
-export const subscriptionPlans = [
-  {
-    name: 'Essential Wash',
-    price: 40,
-    features: ['Weekly exterior wash', 'Tire shine', 'Hand dry', 'Basic vacuum'],
-    isPopular: false,
-  },
-  {
-    name: 'Premium Detail',
-    price: 80,
-    features: ['Bi-weekly exterior & interior', 'Wax and polish', 'Leather conditioning', 'Priority scheduling'],
-    isPopular: true,
-  },
-  {
-    name: 'Luxe Auto Care',
-    price: 150,
-    features: ['Weekly full detail', 'Engine bay cleaning', 'Headlight restoration', 'Complimentary air freshener'],
-    isPopular: false,
-  },
-];
+export type Benefit = {
+  title: string;
+  logo: string;
+  _id: string;
+};
+
+export type SubscriptionPlan = {
+  _id: string;
+  name: string;
+  serviceName: string;
+  type: string;
+  carType: string;
+  price: number;
+  active: boolean;
+  frequencyPerWeek: number;
+  subscriptionDurationInMonths: number;
+  benefits: Benefit[];
+  deletedAt: string | null;
+  __v: number;
+  createdAt: string;
+  updatedAt: string;
+  isPopular?: boolean; // Keep for UI hint
+};
+
+
+export const getSubscriptionPlans = async (): Promise<SubscriptionPlan[]> => {
+  try {
+    const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true');
+    if (!response.ok) {
+      console.error('Failed to fetch products', response.statusText);
+      return [];
+    }
+    const products: SubscriptionPlan[] = await response.json();
+    
+    // basic logic to mark one as popular for UI
+    if (products.length > 1) {
+        products[1].isPopular = true;
+    } else if (products.length === 1) {
+        products[0].isPopular = true;
+    }
+
+    return products;
+  } catch (error) {
+    console.error('Error fetching subscription plans:', error);
+    return [];
+  }
+}
+
 
 export const faqs = [
   {
