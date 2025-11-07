@@ -18,27 +18,31 @@ export default function AdminLoginPage() {
 
   const handleLogin = async () => {
     try {
-      // Using 'no-cors' mode to bypass backend OPTIONS preflight issue.
-      // NOTE: This means we cannot read the response status or body.
-      await fetch('https://maison-saner-roni.ngrok-free.dev/admin/login', {
+      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/admin/login', {
         method: 'POST',
-        mode: 'no-cors', // Workaround for backend CORS preflight failure
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
 
-      // Because of 'no-cors', we can't confirm success. We redirect optimistically.
-      toast({
-        title: 'Login Attempted',
-        description: 'Redirecting to your dashboard...',
-      });
-      router.push('/admin/dashboard');
-      
+      if (response.ok) {
+        // Assuming the API returns a token, which you might want to store later
+        // const data = await response.json(); 
+        toast({
+          title: 'Login Successful',
+          description: "Welcome back! You're being redirected to the dashboard.",
+        });
+        router.push('/admin/dashboard');
+      } else {
+        const errorData = await response.json();
+        toast({
+          variant: 'destructive',
+          title: 'Login Failed',
+          description: errorData.message?.message || 'Invalid credentials. Please try again.',
+        });
+      }
     } catch (error) {
-      // This catch block might not be hit for network errors in 'no-cors' mode,
-      // but it's good practice to keep it.
       console.error('Login error:', error);
       toast({
         variant: 'destructive',
