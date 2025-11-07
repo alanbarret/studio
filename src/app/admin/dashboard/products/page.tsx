@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Table,
   TableBody,
@@ -68,15 +69,33 @@ export default function ProductsPage() {
   const [productToDelete, setProductToDelete] = useState<SubscriptionPlan | null>(null);
   
   const { toast } = useToast();
+  const router = useRouter();
+
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('admin-token');
+    return new Headers({
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': '69420',
+      'Authorization': `Bearer ${token}`
+    });
+  };
 
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
+       const token = localStorage.getItem('admin-token');
+       if (!token) {
+           router.push('/admin/login');
+           return;
+       }
       const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true', {
-          headers: new Headers({
-            "ngrok-skip-browser-warning": "69420",
-          }),
+          headers: getAuthHeaders()
       });
+      if (response.status === 401 || response.status === 403) {
+        toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
+        router.push('/admin/login');
+        return;
+      }
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -84,7 +103,7 @@ export default function ProductsPage() {
          toast({ variant: 'destructive', title: 'Could not fetch products.', description: 'The server responded with an error.' });
       }
     } catch (error) {
-       toast({ variant: 'destructive', title: 'An error occurred.', description: 'Please check the console for more details.' });
+       toast({ variant: 'destructive', title: 'An error occurred.', description: 'Could not connect to the server.' });
     } finally {
       setIsLoading(false);
     }
@@ -148,12 +167,15 @@ export default function ProductsPage() {
     try {
       const response = await fetch(url, {
         method,
-        headers: { 
-            'Content-Type': 'application/json',
-            "ngrok-skip-browser-warning": "69420"
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(formData),
       });
+      
+      if (response.status === 401 || response.status === 403) {
+        toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
+        router.push('/admin/login');
+        return;
+      }
 
       if(response.ok) {
         toast({ title: `Product ${editingProduct ? 'updated' : 'created'} successfully` });
@@ -175,10 +197,14 @@ export default function ProductsPage() {
     try {
       const response = await fetch(`https://maison-saner-roni.ngrok-free.dev/products/${productToDelete._id}`, {
         method: 'DELETE',
-        headers: {
-          "ngrok-skip-browser-warning": "69420",
-        }
+        headers: getAuthHeaders(),
       });
+
+      if (response.status === 401 || response.status === 403) {
+        toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
+        router.push('/admin/login');
+        return;
+      }
 
       if (response.ok) {
          toast({ title: 'Product deleted successfully' });
@@ -340,5 +366,3 @@ export default function ProductsPage() {
     </>
   );
 }
-
-    

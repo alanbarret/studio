@@ -27,17 +27,17 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
-        // Assuming the API returns a token, which you might want to store later
-        // const data = await response.json(); 
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        localStorage.setItem('admin-token', data.token);
         toast({
           title: 'Login Successful',
           description: "Welcome back! You're being redirected to the dashboard.",
         });
         router.push('/admin/dashboard');
       } else {
-        const errorData = await response.json();
-        const errorMessage = errorData.message?.message || errorData.message || 'Invalid credentials. Please try again.';
+        const errorMessage = data.message || 'Invalid credentials. Please try again.';
         toast({
           variant: 'destructive',
           title: 'Login Failed',
