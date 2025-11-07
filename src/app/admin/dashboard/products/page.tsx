@@ -72,27 +72,23 @@ export default function ProductsPage() {
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash');
+      // Using a direct fetch without response processing due to potential CORS issues in dev
+      await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true', {
+          mode: 'no-cors',
+      });
+
+      // Since the above fetch is opaque, we'll follow up with one that we can read,
+      // assuming the no-cors call "warmed up" any necessary server state.
+      // This is a workaround for a tricky development environment.
+      const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash&type=subscribe&active=true');
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
       } else {
-        // Since no-cors makes the response opaque, we can't check status.
-        // We'll have to be optimistic.
-        // The catch block will handle network failures.
-        const backupResponse = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash', { mode: 'no-cors'});
-        // We can't read backupResponse, so we just assume it will work and let the user see.
-        // A proper fix is to enable CORS on the backend for this endpoint.
+         toast({ variant: 'destructive', title: 'Could not fetch products.', description: 'The server responded with an error.' });
       }
     } catch (error) {
-       try {
-        // Fallback to no-cors. This is a workaround for development.
-        const response = await fetch('https://maison-saner-roni.ngrok-free.dev/products?serviceName=car-wash');
-        const data = await response.json();
-        setProducts(data);
-       } catch (e) {
-         toast({ variant: 'destructive', title: 'An error occurred while fetching products.' });
-       }
+       toast({ variant: 'destructive', title: 'An error occurred.', description: 'Please check the console for more details.' });
     } finally {
       setIsLoading(false);
     }
@@ -154,17 +150,20 @@ export default function ProductsPage() {
     const method = editingProduct ? 'PUT' : 'POST';
 
     try {
-      await fetch(url, {
+      const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-        mode: 'no-cors' // CORS workaround
       });
 
-      // Optimistically update UI as response is opaque with no-cors
-      toast({ title: `Product ${editingProduct ? 'updated' : 'created'} successfully` });
-      handleCloseForm();
-      fetchProducts();
+      if(response.ok) {
+        toast({ title: `Product ${editingProduct ? 'updated' : 'created'} successfully` });
+        handleCloseForm();
+        fetchProducts();
+      } else {
+        const errorData = await response.json();
+        toast({ variant: 'destructive', title: 'An error occurred.', description: errorData.message || 'Could not save the product.' });
+      }
       
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred.' });
@@ -175,14 +174,16 @@ export default function ProductsPage() {
     if (!productToDelete) return;
 
     try {
-      await fetch(`https://maison-saner-roni.ngrok-free.dev/products/${productToDelete._id}`, {
+      const response = await fetch(`https://maison-saner-roni.ngrok-free.dev/products/${productToDelete._id}`, {
         method: 'DELETE',
-        mode: 'no-cors' // CORS workaround
       });
 
-      // Optimistically update UI
-      toast({ title: 'Product deleted successfully' });
-      fetchProducts();
+      if (response.ok) {
+         toast({ title: 'Product deleted successfully' });
+         fetchProducts();
+      } else {
+         toast({ variant: 'destructive', title: 'Could not delete product.' });
+      }
 
     } catch (error) {
       toast({ variant: 'destructive', title: 'An error occurred while deleting.' });
