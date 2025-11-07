@@ -35,10 +35,11 @@ export default function AdminLoginPage() {
         router.push('/admin/dashboard');
       } else {
         const errorData = await response.json();
+        const errorMessage = errorData?.message?.message || errorData.message || 'Invalid credentials. Please try again.';
         toast({
           variant: 'destructive',
           title: 'Login Failed',
-          description: errorData.message || 'Invalid credentials. Please try again.',
+          description: errorMessage,
         });
       }
     } catch (error) {
