@@ -66,7 +66,6 @@ export default function PaymentsPage() {
 
       if (response.status === 401) {
         toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
-        router.push('/login');
         return;
       }
 
@@ -94,6 +93,11 @@ export default function PaymentsPage() {
         headers: getAuthHeaders()
       });
 
+      if (response.status === 401) {
+        toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Your session may have expired.' });
+        return;
+      }
+
       if (response.ok) {
         toast({ title: 'Default payment method updated.' });
         fetchPaymentMethods();
@@ -112,6 +116,14 @@ export default function PaymentsPage() {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
+
+      if (response.status === 401) {
+        toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Your session may have expired.' });
+        setIsDeleting(false);
+        setMethodToDelete(null);
+        return;
+      }
+
       if (response.ok) {
         toast({ title: 'Payment method removed.' });
         fetchPaymentMethods();
