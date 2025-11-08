@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -119,8 +120,10 @@ export default function ProductsPage() {
     setFormData(prev => ({ ...prev, [name]: isNumber ? Number(value) : value }));
   };
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setFormData(prev => ({ ...prev, active: checked }));
+  const handleCheckboxChange = (checked: boolean | 'indeterminate') => {
+    if (typeof checked === 'boolean') {
+      setFormData(prev => ({ ...prev, active: checked }));
+    }
   };
 
   const handleBenefitChange = (index: number, field: keyof Omit<Benefit, '_id'>, value: string) => {
@@ -228,24 +231,25 @@ export default function ProductsPage() {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Products</h1>
-          <p className="text-muted-foreground">Manage your subscription plans.</p>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex-1">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Products</h1>
+          <p className="text-muted-foreground text-sm md:text-base">Manage your subscription plans.</p>
         </div>
         <Button onClick={() => handleOpenForm(null)}>
-          <PlusCircle className="mr-2 h-4 w-4" /> Add Product
+          <PlusCircle className="mr-2 h-4 w-4" /> 
+          <span className="hidden sm:inline">Add Product</span>
         </Button>
       </div>
 
       <Card>
-        <CardContent>
+        <CardContent className="p-0">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Car Type</TableHead>
-                <TableHead>Price</TableHead>
+                <TableHead className="hidden md:table-cell">Car Type</TableHead>
+                <TableHead className="hidden sm:table-cell">Price</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -257,8 +261,8 @@ export default function ProductsPage() {
                 products.map((product) => (
                   <TableRow key={product._id}>
                     <TableCell className="font-medium">{product.name}</TableCell>
-                    <TableCell>{product.carType}</TableCell>
-                    <TableCell>${product.price.toFixed(2)}</TableCell>
+                    <TableCell className="hidden md:table-cell">{product.carType}</TableCell>
+                    <TableCell className="hidden sm:table-cell">${product.price.toFixed(2)}</TableCell>
                     <TableCell>{product.active ? 'Active' : 'Inactive'}</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
@@ -299,45 +303,45 @@ export default function ProductsPage() {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto pr-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">Name</Label>
-              <Input id="name" name="name" value={formData.name} onChange={handleFormChange} className="col-span-3" />
+            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="md:text-right">Name</Label>
+              <Input id="name" name="name" value={formData.name} onChange={handleFormChange} className="md:col-span-3" />
             </div>
-             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="carType" className="text-right">Car Type</Label>
-              <Input id="carType" name="carType" value={formData.carType} onChange={handleFormChange} className="col-span-3" />
+             <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <Label htmlFor="carType" className="md:text-right">Car Type</Label>
+              <Input id="carType" name="carType" value={formData.carType} onChange={handleFormChange} className="md:col-span-3" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="price" className="text-right">Price</Label>
-              <Input id="price" name="price" type="number" value={formData.price} onChange={handleFormChange} className="col-span-3" />
+            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <Label htmlFor="price" className="md:text-right">Price</Label>
+              <Input id="price" name="price" type="number" value={formData.price} onChange={handleFormChange} className="md:col-span-3" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="frequencyPerWeek" className="text-right">Washes/Week</Label>
-              <Input id="frequencyPerWeek" name="frequencyPerWeek" type="number" value={formData.frequencyPerWeek} onChange={handleFormChange} className="col-span-3" />
+            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <Label htmlFor="frequencyPerWeek" className="md:text-right">Washes/Week</Label>
+              <Input id="frequencyPerWeek" name="frequencyPerWeek" type="number" value={formData.frequencyPerWeek} onChange={handleFormChange} className="md:col-span-3" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="subscriptionDurationInMonths" className="text-right">Duration (Months)</Label>
-              <Input id="subscriptionDurationInMonths" name="subscriptionDurationInMonths" type="number" value={formData.subscriptionDurationInMonths} onChange={handleFormChange} className="col-span-3" />
+            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <Label htmlFor="subscriptionDurationInMonths" className="md:text-right">Duration (Months)</Label>
+              <Input id="subscriptionDurationInMonths" name="subscriptionDurationInMonths" type="number" value={formData.subscriptionDurationInMonths} onChange={handleFormChange} className="md:col-span-3" />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="active" className="text-right">Active</Label>
+            <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <Label htmlFor="active" className="md:text-right">Active</Label>
               <Checkbox id="active" checked={formData.active} onCheckedChange={handleCheckboxChange} />
             </div>
 
-            <h4 className="font-medium text-center col-span-4 mt-4">Benefits</h4>
+            <h4 className="font-medium text-center col-span-1 md:col-span-4 mt-4">Benefits</h4>
             {formData.benefits.map((benefit, index) => (
-                <div key={index} className="grid grid-cols-4 items-center gap-4 relative">
-                    <Label htmlFor={`benefit-title-${index}`} className="text-right">Title</Label>
-                    <Input id={`benefit-title-${index}`} value={benefit.title} onChange={(e) => handleBenefitChange(index, 'title', e.target.value)} className="col-span-2" />
-                    <div className="col-span-1 flex items-center">
-                        <Input placeholder="Logo" value={benefit.logo} onChange={(e) => handleBenefitChange(index, 'logo', e.target.value)} className="w-1/2 mr-2" />
+                <div key={index} className="grid grid-cols-1 md:grid-cols-4 items-center gap-4 relative">
+                    <Label htmlFor={`benefit-title-${index}`} className="md:text-right">Title</Label>
+                    <Input id={`benefit-title-${index}`} value={benefit.title} onChange={(e) => handleBenefitChange(index, 'title', e.target.value)} className="md:col-span-2" />
+                    <div className="md:col-span-1 flex items-center">
+                        <Input placeholder="Logo" value={benefit.logo} onChange={(e) => handleBenefitChange(index, 'logo', e.target.value)} className="flex-1 mr-2" />
                         <Button variant="ghost" size="icon" onClick={() => removeBenefitField(index)} disabled={formData.benefits.length <= 1}>
                             <Trash2 className="h-4 w-4" />
                         </Button>
                     </div>
                 </div>
             ))}
-            <div className="col-span-4 flex justify-center">
+            <div className="col-span-1 md:col-span-4 flex justify-center">
                 <Button variant="outline" size="sm" onClick={addBenefitField}>Add Benefit</Button>
             </div>
           </div>
