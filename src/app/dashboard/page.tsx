@@ -62,8 +62,19 @@ export default function DashboardOverview() {
         const historyData = await historyRes.json();
 
         setUser(profileData);
-        setSubscriptions(subsData);
-        setHistory(historyData);
+        
+        if (Array.isArray(subsData)) {
+            setSubscriptions(subsData);
+        } else {
+            setSubscriptions([]);
+        }
+        
+        if (Array.isArray(historyData)) {
+            setHistory(historyData);
+        } else {
+            setHistory([]);
+        }
+
 
       } catch (error) {
         toast({ variant: 'destructive', title: 'An error occurred.', description: 'Could not fetch dashboard data.' });
