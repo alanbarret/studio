@@ -39,9 +39,10 @@ export type UserSubscription = {
 
 export type PaymentMethod = {
   id: string;
-  type: string;
+  brand: string;
   last4: string;
-  expiry: string;
+  exp_month: number;
+  exp_year: number;
   isDefault: boolean;
 };
 
