@@ -94,7 +94,6 @@ export default function ProductsPage() {
       });
       if (response.status === 401 || response.status === 403) {
         toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
-        router.push('/admin/login');
         return;
       }
       if (response.ok) {
@@ -176,7 +175,6 @@ export default function ProductsPage() {
       
       if (response.status === 401 || response.status === 403) {
         toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
-        router.push('/admin/login');
         return;
       }
 
@@ -205,7 +203,6 @@ export default function ProductsPage() {
 
       if (response.status === 401 || response.status === 403) {
         toast({ variant: 'destructive', title: 'Authentication Failed', description: 'Please log in again.' });
-        router.push('/admin/login');
         return;
       }
 
@@ -244,53 +241,55 @@ export default function ProductsPage() {
 
       <Card>
         <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden md:table-cell">Car Type</TableHead>
-                <TableHead className="hidden sm:table-cell">Price</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {isLoading ? (
-                <TableRow><TableCell colSpan={5} className="text-center">Loading...</TableCell></TableRow>
-              ) : products.length > 0 ? (
-                products.map((product) => (
-                  <TableRow key={product._id}>
-                    <TableCell className="font-medium">{product.name}</TableCell>
-                    <TableCell className="hidden md:table-cell">{product.carType}</TableCell>
-                    <TableCell className="hidden sm:table-cell">${product.price.toFixed(2)}</TableCell>
-                    <TableCell>{product.active ? 'Active' : 'Inactive'}</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleOpenForm(product)}>
-                            <Edit className="mr-2 h-4 w-4" />
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => openDeleteDialog(product)} className="text-red-600">
-                             <Trash2 className="mr-2 h-4 w-4" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow><TableCell colSpan={5} className="text-center">No products found.</TableCell></TableRow>
-              )}
-            </TableBody>
-          </Table>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="hidden md:table-cell">Car Type</TableHead>
+                  <TableHead className="hidden sm:table-cell">Price</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {isLoading ? (
+                  <TableRow><TableCell colSpan={5} className="text-center">Loading...</TableCell></TableRow>
+                ) : products.length > 0 ? (
+                  products.map((product) => (
+                    <TableRow key={product._id}>
+                      <TableCell className="font-medium">{product.name}</TableCell>
+                      <TableCell className="hidden md:table-cell">{product.carType}</TableCell>
+                      <TableCell className="hidden sm:table-cell">${product.price.toFixed(2)}</TableCell>
+                      <TableCell>{product.active ? 'Active' : 'Inactive'}</TableCell>
+                      <TableCell className="text-right">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <span className="sr-only">Open menu</span>
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleOpenForm(product)}>
+                              <Edit className="mr-2 h-4 w-4" />
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => openDeleteDialog(product)} className="text-red-600">
+                               <Trash2 className="mr-2 h-4 w-4" />
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow><TableCell colSpan={5} className="text-center">No products found.</TableCell></TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
 
