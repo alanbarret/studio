@@ -46,12 +46,12 @@ export default function ProfilePage() {
         {userSubscriptions.map((sub) => (
           <div key={sub.id} className="flex items-center justify-between rounded-lg border p-4">
             <div>
-              <p className="font-semibold flex items-center gap-2">
+              <div className="font-semibold flex items-center gap-2">
                 {sub.planName}
                 <Badge variant={sub.status === 'Active' ? 'default' : 'secondary'} className={sub.status === 'Active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : ''}>
                   {sub.status}
                 </Badge>
-              </p>
+              </div>
               <p className="text-sm text-muted-foreground">
                 ${sub.price}/month | Renews {sub.nextBillingDate}
               </p>
