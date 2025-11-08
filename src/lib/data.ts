@@ -1,4 +1,3 @@
-import { Car, CreditCard, History, Home, LogOut, Settings, User, Wallet } from 'lucide-react';
 
 export type Benefit = {
   title: string;
@@ -24,6 +23,35 @@ export type SubscriptionPlan = {
   isPopular?: boolean; // Keep for UI hint
 };
 
+export type User = {
+  name: string;
+  email: string;
+  avatar: string;
+};
+
+export type UserSubscription = {
+  id: string;
+  planName: string;
+  status: 'Active' | 'Cancelled';
+  nextBillingDate: string;
+  price: number;
+};
+
+export type PaymentMethod = {
+  id: string;
+  type: string;
+  last4: string;
+  expiry: string;
+  isDefault: boolean;
+};
+
+export type Booking = {
+  id: string;
+  date: string;
+  service: string;
+  status: 'Completed' | 'Upcoming';
+  amount: number;
+};
 
 export const getSubscriptionPlans = async (filters: { [key: string]: string | boolean } = {}): Promise<SubscriptionPlan[]> => {
   try {
@@ -109,90 +137,3 @@ export const benefits = [
     description: 'Manage your bookings easily through our dashboard to fit your busy lifestyle.',
   },
 ];
-
-
-export const user = {
-  name: 'Alex Rivera',
-  email: 'alex.rivera@example.com',
-  avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
-};
-
-export const userSubscriptions = [
-  {
-    id: 'sub_1',
-    planName: 'Premium Detail',
-    status: 'Active',
-    nextBillingDate: 'August 15, 2024',
-    price: 80,
-  },
-  {
-    id: 'sub_2',
-    planName: 'Essential Wash',
-    status: 'Cancelled',
-    cancellationDate: 'May 20, 2024',
-    price: 40,
-  },
-];
-
-export const paymentMethods = [
-  {
-    id: 'pm_1',
-    type: 'Visa',
-    last4: '4242',
-    expiry: '12/26',
-    isDefault: true,
-  },
-  {
-    id: 'pm_2',
-    type: 'Mastercard',
-    last4: '5555',
-    expiry: '08/25',
-    isDefault: false,
-  },
-];
-
-export const bookingHistory = [
-  {
-    id: 'booking_1',
-    date: 'July 1, 2024',
-    service: 'Premium Detail',
-    status: 'Completed',
-    amount: 80,
-  },
-  {
-    id: 'booking_2',
-    date: 'June 17, 2024',
-    service: 'Premium Detail',
-    status: 'Completed',
-    amount: 80,
-  },
-  {
-    id: 'booking_3',
-    date: 'June 3, 2024',
-    service: 'Premium Detail',
-    status: 'Completed',
-    amount: 80,
-  },
-  {
-    id: 'booking_4',
-    date: 'May 20, 2024',
-    service: 'Essential Wash',
-    status: 'Completed',
-    amount: 40,
-  },
-];
-
-export const dashboardNavItems = [
-    { href: '/dashboard', label: 'Overview', icon: Home },
-    { href: '/dashboard/subscriptions', label: 'Subscriptions', icon: Wallet },
-    { href: '/dashboard/payments', label: 'Payment Methods', icon: CreditCard },
-    { href: '/dashboard/history', label: 'Booking History', icon: History },
-    { href: '/dashboard/profile', label: 'Profile', icon: User },
-];
-
-export const dashboardLogoutItem = {
-    label: 'Log Out',
-    icon: LogOut,
-};
-
-    
