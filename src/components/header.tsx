@@ -9,6 +9,8 @@ import { Menu, X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 
@@ -50,6 +52,9 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[240px] sm:w-[300px]">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+              </SheetHeader>
               <div className="p-4">
                  <Link href="/" className="mr-6 flex items-center space-x-2 mb-8">
                     <Icons.logo className="h-6 w-6 text-primary" />
