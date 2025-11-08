@@ -24,10 +24,10 @@ export default function Hero() {
         <div className="bg-background/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 animate-fade-in-up">
           <p className="text-sm font-medium text-primary">Your Car, Perfectly Maintained</p>
         </div>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-foreground mb-4 animate-fade-in-up animation-delay-200">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-foreground mb-4 animate-fade-in-up animation-delay-200">
           Impeccable Shine, Unmatched Convenience.
         </h1>
-        <p className="max-w-2xl text-muted-foreground md:text-xl mb-8 animate-fade-in-up animation-delay-400">
+        <p className="max-w-2xl text-muted-foreground text-base sm:text-lg md:text-xl mb-8 animate-fade-in-up animation-delay-400">
           Subscribe to a consistently clean car. Our trusted professionals deliver a spotless finish, so you can focus on the drive.
         </p>
         <div className="animate-fade-in-up animation-delay-600">
