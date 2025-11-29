@@ -32,6 +32,7 @@ export default function Footer() {
               <li><Link href="#" className="text-muted-foreground hover:text-foreground">About Us</Link></li>
               <li><Link href="#" className="text-muted-foreground hover:text-foreground">Careers</Link></li>
               <li><Link href="#" className="text-muted-foreground hover:text-foreground">Contact</Link></li>
+               <li><Link href="/admin/login" className="text-muted-foreground hover:text-foreground">Admin Portal</Link></li>
             </ul>
           </div>
           <div className="lg:col-span-1">
