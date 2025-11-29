@@ -7,22 +7,10 @@
       "imageHint": "clean car"
     },
     {
-      "id": "benefit-1",
+      "id": "feature-1",
       "description": "Professional detailer polishing a car",
       "imageUrl": "https://images.unsplash.com/photo-1616422285852-243194f5791a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjBkZXRhaWxpbmJ8ZW58MHx8fHwxNzYyNTU1NTMz&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "car detailing"
-    },
-    {
-      "id": "benefit-2",
-      "description": "High-quality car wax and microfiber towels",
-      "imageUrl": "https://images.unsplash.com/photo-1582769216936-82991f0459c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjB3YXh8ZW58MHx8fHwxNzYyNTU1NTMz&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "car wax"
-    },
-    {
-      "id": "benefit-3",
-      "description": "A person using a phone to book a car wash",
-      "imageUrl": "https://images.unsplash.com/photo-1759143545924-beb85b33c0f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxib29raW5nJTIwc2VydmljZXxlbnwwfHx8fDE3NjI1NTU1MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "booking service"
     }
   ]
 }

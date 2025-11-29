@@ -3,7 +3,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle } from 'lucide-react';
 
 export function Features() {
-  const featureImage = PlaceHolderImages.find((img) => img.id === 'benefit-1');
+  const featureImage = PlaceHolderImages.find((img) => img.id === 'feature-1');
   
   const featuresList = [
       "Exterior Hand Wash & Dry",
