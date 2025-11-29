@@ -9,7 +9,7 @@ export default function Hero() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero');
 
   return (
-    <section className="relative w-full pt-20 pb-12 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32">
+    <section className="relative w-full pt-20 pb-12 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 bg-background">
       <div className="container px-4 md:px-6">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col items-center justify-center text-center lg:items-start lg:text-left space-y-6">

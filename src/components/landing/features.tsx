@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { CheckCircle } from 'lucide-react';
-import { Card, CardContent } from '../ui/card';
 
 export function Features() {
   const featureImage = PlaceHolderImages.find((img) => img.id === 'benefit-1');
@@ -16,7 +15,7 @@ export function Features() {
   ];
 
   return (
-    <section id="features" className="w-full py-16 sm:py-24">
+    <section id="features" className="w-full py-16 sm:py-24 bg-secondary">
       <div className="container">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="space-y-6">

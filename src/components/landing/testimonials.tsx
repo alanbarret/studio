@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent, CardFooter } from "../ui/card";
 import { Star } from "lucide-react";
 
 const testimonials = [
@@ -25,7 +25,7 @@ const testimonials = [
 
 export function Testimonials() {
     return (
-        <section id="testimonials" className="py-16 sm:py-24 bg-secondary">
+        <section id="testimonials" className="py-16 sm:py-24 bg-background">
             <div className="container">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Loved by Customers Everywhere</h2>
@@ -35,11 +35,18 @@ export function Testimonials() {
                 </div>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {testimonials.map((testimonial, index) => (
-                        <Card key={index} className="flex flex-col">
+                        <Card key={index} className="flex flex-col justify-between shadow-md">
                            <CardContent className="pt-6 flex-1">
-                             <p className="text-muted-foreground">"{testimonial.quote}"</p>
+                                <div className="flex mb-2">
+                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                </div>
+                                <p className="text-foreground">"{testimonial.quote}"</p>
                            </CardContent>
-                           <CardHeader className="flex-row items-center gap-4">
+                           <CardFooter className="flex items-center gap-4">
                                 <Avatar>
                                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                                     <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
@@ -48,7 +55,7 @@ export function Testimonials() {
                                     <p className="font-semibold">{testimonial.name}</p>
                                     <p className="text-sm text-muted-foreground">{testimonial.title}</p>
                                 </div>
-                           </CardHeader>
+                           </CardFooter>
                         </Card>
                     ))}
                 </div>
