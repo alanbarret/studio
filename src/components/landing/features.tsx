@@ -38,7 +38,7 @@ export function Features() {
             </div>
           </div>
           <div className="flex justify-center">
-            {featureImage && (
+            {featureImage ? (
               <Image
                 src={featureImage.imageUrl}
                 alt={featureImage.description}
@@ -47,6 +47,10 @@ export function Features() {
                 className="rounded-xl shadow-2xl object-cover"
                 data-ai-hint={featureImage.imageHint}
               />
+            ) : (
+              <div className="w-[550px] h-[550px] bg-muted rounded-xl shadow-2xl flex items-center justify-center">
+                <p className="text-muted-foreground">Image not found</p>
+              </div>
             )}
           </div>
         </div>
