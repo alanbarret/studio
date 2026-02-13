@@ -1,0 +1,32 @@
+{
+  "theme_name": "naftgaz-theme",
+  "theme_author": "alanbarret",
+  "source_url": "https://naftagaz.com/en/",
+  "color_palette": [
+    "#fff",
+    "rgba(var(--c-grey-rgb)",
+    "#FFF",
+    "#111",
+    "#000",
+    "rgba(var(--c-white-rgb)",
+    "#333",
+    "#26b8e2",
+    "#394854",
+    "#0083d1"
+  ],
+  "typography": [
+    "monospace,monospace",
+    "Helvetica Neue,Helvetica,Arial,sans-serif",
+    "object-fit: contain",
+    "sans-serif",
+    "Suisse Intl,Helvetica,Arial,sans-serif"
+  ],
+  "layout_structure": {
+    "has_header": true,
+    "has_navigation": true,
+    "has_footer": true,
+    "has_sidebar": false
+  },
+  "css_sources_analyzed": 3,
+  "ai_suggestions_available": true
+}
